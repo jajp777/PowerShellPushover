@@ -32,6 +32,7 @@ param(
 
     $Results = $Parameters | Invoke-RestMethod -Uri $PushoverURI -Method Post
     $Results | Add-Member -MemberType NoteProperty -Name DateTime -Value (Get-Date)
+    $Results | Add-Member -MemberType NoteProperty -Name Title -Value $Parameters.Title
     $Global:PreviousPushMessages += $Results
     #Write-Output $Results
 
