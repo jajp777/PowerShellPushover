@@ -1,6 +1,7 @@
 ﻿$PushoverURI = 'https://api.pushover.net/1/messages.json'
 $PushoverUserKey = 'udFKDUGUbYXm32uogzLcp4EHskkBAV'
 $PushoverAppToken = 'agAvpEEvTb36Cdo6HkV5yUq6eyNT1q'
+$Global:PreviousPushMessages = @()
 
 Function Send-PushoverMessage {
 param(
@@ -29,8 +30,9 @@ param(
 
     }
 
-    Write-Output ($Parameters | Invoke-RestMethod -Uri $PushoverURI -Method Post)
+    $Results = $Parameters | Invoke-RestMethod -Uri $PushoverURI -Method Post
+    $Results | Add-Member -MemberType NoteProperty -Name DateTime -Value (Get-Date)
+    $Global:PreviousPushMessages += $Results
+    #Write-Output $Results
 
 }
-
-Send-PushoverMessage -Title "Test $(Get-Date)" -Message "$(((get-date).ToString() | Get-Hash -Algorithm SHA1).HashString)" -Sound CashRegister
