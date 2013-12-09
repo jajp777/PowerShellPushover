@@ -5,7 +5,9 @@ $PushoverAppToken = 'agAvpEEvTb36Cdo6HkV5yUq6eyNT1q'
 Function Send-PushoverMessage {
 param(
     $Message = "",
-    $Title = ""
+    $Title = "",
+    $URL = '',
+    $URLTitle = ''
 )
 
 
@@ -14,6 +16,8 @@ param(
         user=$PushoverUserKey
         message=$Message
         title=$Title
+        url=$URL
+        url_title=$URLTitle
 
     }
 
@@ -21,3 +25,4 @@ param(
 
 }
 
+Send-PushoverMessage -Title "Test" -Message "Patriots Won" -URL 'http://ngetchell.com' -URLTitle 'Best Blog Ever'
