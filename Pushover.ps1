@@ -7,7 +7,9 @@ param(
     $Message = "",
     $Title = "",
     $URL = '',
-    $URLTitle = ''
+    $URLTitle = '',
+    [ValidateSet("-1","0","1","2")] 
+    [int]$Priority = '0'
 )
 
 
@@ -18,11 +20,10 @@ param(
         title=$Title
         url=$URL
         url_title=$URLTitle
+        priority=$Priority
 
     }
 
     Write-Output ($Parameters | Invoke-RestMethod -Uri $PushoverURI -Method Post)
 
 }
-
-Send-PushoverMessage -Title "Test" -Message "Patriots Won" -URL 'http://ngetchell.com' -URLTitle 'Best Blog Ever'
