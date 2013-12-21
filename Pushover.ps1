@@ -11,7 +11,10 @@ param(
     [string]$URL ='',
     [string]$URLTitle = '',
     [DateTime]$Timestamp=(Get-Date),
-    [String]$Device
+    [String]$Device,
+    [int]$Expire = '',
+    [ValidateSet("CashRegister","Bike","Bugle","Classical","Cosmic","Falling","GameLan","Incomming","Intermission","Magic","Mechanical","PianoBar","Siren","SpaceAlarm","TugBoat","Alien","Climb","Persistent","Echo","UpDown","none")]
+    [string]$Sound = ''
 )
 
 
@@ -22,10 +25,11 @@ param(
         title=$Title
         url=$URL
         url_title=$URLTitle
-        Priority=$Priority
-        Sound=$Sound
+        priority=$Priority
         device=$Device
         timestamp=(Get-Date $Timestamp -UFormat %s) -replace("[,\.]\d*", "")
+        expire=$Expire
+        sound=$sound.ToLower()
 
     }
 
