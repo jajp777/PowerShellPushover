@@ -10,7 +10,8 @@ param(
     $Priority = '0',
     [string]$URL ='',
     [string]$URLTitle = '',
-    [DateTime]$Timestamp=(Get-Date)
+    [DateTime]$Timestamp=(Get-Date),
+    [String]$Device
 )
 
 
@@ -23,6 +24,7 @@ param(
         url_title=$URLTitle
         Priority=$Priority
         Sound=$Sound
+        device=$Device
         timestamp=(Get-Date $Timestamp -UFormat %s) -replace("[,\.]\d*", "")
 
     }
