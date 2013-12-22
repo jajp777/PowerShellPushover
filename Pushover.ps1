@@ -5,17 +5,18 @@ $Global:PreviousPushMessages = @()
 
 Function Send-PushoverMessage {
 param(
-    $Message = "",
-    $Title = "",
-    [ValidateSet('-1','0','1','2')]
-    $Priority = '0',
-    [string]$URL ='',
+    [string]$Message = "",
+    [string]$Title = "",
+    [string]$URL = '',
     [string]$URLTitle = '',
+    [ValidateSet("-1","0","1","2")] 
+    [int]$Priority = '0',
+    [int]$Expire = '86400',
     #[DateTime]$Timestamp = '',
-    [String]$Device,
-    [int]$Expire = '',
+    [String]$Device,    
     [ValidateSet("CashRegister","Bike","Bugle","Classical","Cosmic","Falling","GameLan","Incomming","Intermission","Magic","Mechanical","PianoBar","Siren","SpaceAlarm","TugBoat","Alien","Climb","Persistent","Echo","UpDown","none")]
-    [string]$Sound = ''
+    [string]$Sound = '',
+    [int]$Retry
 )
 
 
@@ -31,6 +32,7 @@ param(
         #timestamp=(Get-Date $Timestamp -UFormat %s) -replace("[,\.]\d*", "")
         expire=$Expire
         sound=$sound.ToLower()
+        retry-$Retry
 
     }
 
@@ -42,3 +44,15 @@ param(
     Write-Output $Results
 }
 
+Function Get-PushoverReceipt {
+    param (
+        [string]$Receipt = ''
+    )
+
+    if ($Receipt -eq '') { 
+        Write-Warning "Invalid Receipt" 
+    } else {
+        Invoke-WebRequest -Uri "https://api.pushover.net/1/receipts/5e35b93f4d2e1daa5778a6109e99a22d.json?token=agAvpEEvTb36Cdo6HkV5yUq6eyNT1q"
+    }
+
+}
