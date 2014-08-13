@@ -1,7 +1,30 @@
-﻿$PushoverURI = 'https://api.pushover.net/1/messages.json'
-$PushoverUserKey = 'udFKDUGUbYXm32uogzLcp4EHskkBAV'
-$PushoverAppToken = 'agAvpEEvTb36Cdo6HkV5yUq6eyNT1q'
+﻿$CommandPath = split-path $PSCommandPath
+
+$PushoverURI = 'https://api.pushover.net/1/messages.json'
 $Global:PreviousPushMessages = @()
+
+Function Save-PushoverAPIInformation {
+[cmdletbinding()]
+param(
+    
+    [parameter(Mandatory=$True)]
+    [ValidateNotNull()]
+    [string]$UserKey,
+    
+    [parameter(Mandatory=$True)]
+    [ValidateNotNull()]
+    [string]$AppToken
+
+)
+
+    $ReturnObject = New-Object -TypeName psobject -Property @{
+        UserKey=$UserKey
+        AppToken=$AppToken
+    }
+    Write-Verbose "Savinging Pushover API information to $("$CommandPath\PushOverAPIAuth.xml")"
+    $ReturnObject | Export-clixml -Path "$CommandPath\PushOverAPIAuth.xml"
+
+}
 
 Function Send-PushoverMessage {
 param(
@@ -32,7 +55,7 @@ param(
         #timestamp=(Get-Date $Timestamp -UFormat %s) -replace("[,\.]\d*", "")
         expire=$Expire
         sound=$sound.ToLower()
-        retry-$Retry
+        retry=$Retry
 
     }
 
@@ -52,7 +75,7 @@ Function Get-PushoverReceipt {
     if ($Receipt -eq '') { 
         Write-Warning "Invalid Receipt" 
     } else {
-        Invoke-WebRequest -Uri "https://api.pushover.net/1/receipts/5e35b93f4d2e1daa5778a6109e99a22d.json?token=agAvpEEvTb36Cdo6HkV5yUq6eyNT1q"
+        Invoke-WebRequest -Uri "https://api.pushover.net/1/receipts/$Receipt.json?token=$PushoverAppToken"
     }
 
 }
