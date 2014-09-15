@@ -36,7 +36,7 @@ param(
     [ValidateSet("-1","0","1","2")] 
     [int]$Priority = '0',
     [int]$Expire = '86400',
-    #[DateTime]$Timestamp = '',
+    [DateTime]$Timestamp = '',
     [String]$Device,    
     [ValidateSet("CashRegister","Bike","Bugle","Classical","Cosmic","Falling","GameLan","Incomming","Intermission","Magic","Mechanical","PianoBar","Siren","SpaceAlarm","TugBoat","Alien","Climb","Persistent","Echo","UpDown","none")]
     [string]$Sound = '',
@@ -54,7 +54,7 @@ param(
         url_title=$URLTitle
         priority=$Priority
         device=$Device
-        #timestamp=(Get-Date $Timestamp -UFormat %s) -replace("[,\.]\d*", "")
+        timestamp=(Get-Date $Timestamp -UFormat %s) -replace("[,\.]\d*", "")
         expire=$Expire
         sound=$sound.ToLower()
         retry=$Retry
