@@ -27,6 +27,7 @@ param(
 }
 
 Function Send-PushoverMessage {
+[cmdletbinding()]
 param(
     [string]$Message = "",
     [string]$Title = "",
@@ -42,10 +43,11 @@ param(
     [int]$Retry
 )
 
+    $Config = Import-Clixml "$CommandPath\pushoverapiauth.xml"
 
     $Parameters = @{
-        token=$PushoverAppToken
-        user=$PushoverUserKey
+        token=$Config.AppToken
+        user=$Config.UserKey
         message=$Message
         title=$Title
         url=$URL
