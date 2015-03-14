@@ -4,6 +4,17 @@ $PushoverURI = 'https://api.pushover.net/1/messages.json'
 $Global:PreviousPushMessages = @()
 
 Function Save-PushoverAPIInformation {
+<#
+.Synopsis
+   Used to save the userkey and api token for Pushover API use in Powershell
+.EXAMPLE
+   Save-PushoverAPIInformation -UserKey 'kjsafhfakjsdhfkhasfkhasuf' -AppToken 'sda87asf7agsl2ih24444'
+.OUTPUTS
+   [xml] file
+.NOTES
+   Saves the configuration XML file with the module. You will need admin rights if you saved the module outside of your
+   user profile module repositiory. 
+#>
 [cmdletbinding()]
 param(
     
@@ -27,6 +38,16 @@ param(
 }
 
 Function Send-PushoverMessage {
+<#
+.Synopsis
+   Actually sends message off to Pushover Devices
+.DESCRIPTION
+   Uses the Pushover API to send messages via powershell. Requires Save-PushoverAPIInformation first. 
+   Devices are auto populated from the list of registered devices with Pushover. Also saves the messages to 
+   $PreviousPushoverMessages global variable for status information.  
+.EXAMPLE
+   Send-PushoverMessage 'This is a test' 'Test 1'
+#>
 [cmdletbinding()]
 param(
     [string]$token = "$(Import-Clixml "$CommandPath\pushoverapiauth.xml" | Select-Object -ExpandProperty AppToken)",
@@ -112,6 +133,14 @@ Function Get-PushoverReceipt {
 }
 
 Function Get-PushoverUserDevices {
+<#
+.Synopsis
+   Retrieves a list of registered devices with Pushover. 
+.EXAMPLE
+   Get-PushoverUserDevices
+   Nexus7
+   Blackfyre
+#>
 param(
     [string]$token = "$(Import-Clixml "$CommandPath\pushoverapiauth.xml" | Select-Object -ExpandProperty AppToken)",
 
