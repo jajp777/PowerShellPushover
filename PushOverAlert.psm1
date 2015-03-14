@@ -38,7 +38,7 @@ param(
     [int]$Expire = '86400',
     [DateTime]$Timestamp = '',
     [String]$Device,    
-    [ValidateSet("CashRegister","Bike","Bugle","Classical","Cosmic","Falling","GameLan","Incomming","Intermission","Magic","Mechanical","PianoBar","Siren","SpaceAlarm","TugBoat","Alien","Climb","Persistent","Echo","UpDown","none")]
+    [ValidateSet("pushover","bike","bugle","cashregister","classical","cosmic","falling","gamelan","incoming","intermission","magic","mechanical","pianobar","siren","spacealarm","tugboat","alien","climb","persistent","echo","updown","none")]
     [string]$Sound = '',
     [int]$Retry
 )
