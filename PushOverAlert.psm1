@@ -33,10 +33,13 @@ param(
 
     [string]$user = "$(Import-Clixml "$CommandPath\pushoverapiauth.xml" | Select-Object -ExpandProperty UserKey)",
 
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$true,
+               Position=1
+    )]
     [string]$message = "",
 
-    
+    [Parameter(Position=2
+    )]    
     [string]$title,
     
     [string]$url = '',
