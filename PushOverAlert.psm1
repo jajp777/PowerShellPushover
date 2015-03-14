@@ -29,17 +29,27 @@ param(
 Function Send-PushoverMessage {
 [cmdletbinding()]
 param(
+    [Parameter(Mandatory=$true)]
     [string]$Message = "",
+
     [string]$Title = "",
+    
     [string]$URL = '',
+    
     [string]$URLTitle = '',
+    
     [ValidateSet("-1","0","1","2")] 
     [int]$Priority = '0',
+    
     [int]$Expire = '86400',
+    
     [DateTime]$Timestamp = '',
+    
     [String]$Device,    
+    
     [ValidateSet("pushover","bike","bugle","cashregister","classical","cosmic","falling","gamelan","incoming","intermission","magic","mechanical","pianobar","siren","spacealarm","tugboat","alien","climb","persistent","echo","updown","none")]
     [string]$Sound = '',
+    
     [int]$Retry
 )
 
